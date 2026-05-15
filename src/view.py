@@ -1,9 +1,25 @@
 # view.py
 import time
+import logging
 from threading import Thread
 import cv2
 from flask import Flask, Response, render_template_string, abort
 from werkzeug.serving import make_server
+
+
+class _HttpTagFilter(logging.Filter):
+    """Prepends [HTTP] to werkzeug access log messages."""
+    def filter(self, record: logging.LogRecord) -> bool:
+        msg = record.getMessage()
+        if not msg.startswith("[HTTP] "):
+            record.msg = "[HTTP] " + msg
+            record.args = ()
+        return True
+
+
+_werkzeug_logger = logging.getLogger("werkzeug")
+if not any(isinstance(f, _HttpTagFilter) for f in _werkzeug_logger.filters):
+    _werkzeug_logger.addFilter(_HttpTagFilter())
 
 INDEX_HTML = """
 <!doctype html>
