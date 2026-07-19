@@ -52,7 +52,7 @@ double-encode round trip is exactly what doesn't fit.
 
 ## Target architecture
 
-### 1. Recording: ffmpeg segments + concat-copy (steal from `voice-pilot.py`)
+### 1. Recording: ffmpeg segments + concat-copy
 
 One long-lived ffmpeg process reads the camera and writes fixed-length segments
 (`.ts`, e.g. 2 s) to a tmpfs (`/dev/shm`). A monitor loop keeps a rolling window of
@@ -136,8 +136,7 @@ survive.
       rolling-delete loop, concat-copy on a fake trigger. Watch `htop` + `df /dev/shm`.
       Confirm 720p20 holds and CPU/RAM are comfortable **before** touching the app.
 - [ ] **1. `recorder.py`.** Turn the spike into a module: start(), rolling segment
-      buffer + cleanup, `save_clip(start, end)` (concat-copy). Adapt from
-      `voice-pilot.py`'s segment/monitor/concat functions.
+      buffer + cleanup, `save_clip(start, end)` (concat-copy). 
 - [ ] **2. Detection source.** Feed the grayscale pipe/lores stream into the existing
       `motion_percent_mog2` — no change to the detector or its tuning.
 - [ ] **3. Rewire `cam_worker`.** Replace "open writer on motion → write frames →
