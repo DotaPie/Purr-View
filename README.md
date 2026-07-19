@@ -1,4 +1,12 @@
 # Purr View
+
+> **Paused this personal learning project.** Works on Pi 4/5-class hardware, but it is
+> **not** performance-tuned. It decodes and re-encodes every frame, so it is not
+> suited to low-RAM devices (e.g. Pi Zero 2 W / 512 MB). A performance rewrite (ffmpeg
+> segment-copy recording, hardware H.264, Pi 4 target) is planned - see
+> [DESIGN.md](DESIGN.md). For a mature, lightweight alternative, see
+> [`motion`](https://motion-project.github.io/).
+
 - Takes stream from any amount of cameras (or any video stream that is accepted by opencv python library) and detects motion on them. 
 - If motion is detected, video (with some pre-buffer and post-buffer) is saved locally or uploaded to FTP server (can do one or another, or both). 
 - Streams can be viewed via web browser (this feature supports only up to 4 streams).
